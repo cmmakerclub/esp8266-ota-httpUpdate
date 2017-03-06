@@ -14,15 +14,27 @@ static const char* fw_rev = "__FW_REV__";
 #define USE_SERIAL Serial
 
 void setup() {
+
   USE_SERIAL.begin(115200);
   // USE_SERIAL.setDebugOutput(true);
 
   USE_SERIAL.println();
   USE_SERIAL.println();
   USE_SERIAL.println();
+
+  WiFi.begin("Kittenbeer", "kitten2015");
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("");
+  Serial.println("WiFi connected");
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
 }
 
-#define FIRMWARE_URL "http://cmmc.io/firmware.php?version="
+#define FIRMWARE_URL "http://cmmc.io/god/firmware.bin"
 
 void loop() {
   timer.every_ms(5000, []() {
